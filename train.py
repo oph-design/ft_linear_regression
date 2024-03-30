@@ -1,18 +1,18 @@
-from enum import Enum
 import numpy as np
 import pandas as pd
-import time
 import matplotlib.pyplot as plt
 
 M: float = 0.0
 C: float = 0.0
-L: float = 0.0001
+L: float = 0.1
 Iterations: int = 1000
 
 
 def plot_data(x, y):
     """plots the data from the csv"""
     plt.scatter(x, y)
+    predict = C + M * x
+    plt.plot(x, predict, color="g")
     plt.xlabel("mileage")
     plt.ylabel("price")
     plt.title("price per mileage")
@@ -24,11 +24,11 @@ def calc_loss(x, y, length, var) -> float:
     sum: float = 0.0
     for i in range(length):
         predicted_price = C + M * x[i]
-        error = y[i] - predicted_price
+        error = predicted_price - y[i]
         if var is True:
-            error *= y[i]
-        sum += error
-    return (-2 / length) * sum
+            error = error * x[i]
+        sum = sum + error
+    return (2 / length) * sum
 
 
 def train_model(x, y):
@@ -36,21 +36,26 @@ def train_model(x, y):
     length = len(x)
     for i in range(Iterations):
         global C, M
-        loss_m = calc_loss(x, y, length, True)
         loss_c = calc_loss(x, y, length, False)
-        C -= L * loss_c
-        M -= L * loss_m
-        print(f"c: {C} loss: {loss_c} m:{M} loss: {loss_m}")
-        time.sleep(1)
+        loss_m = calc_loss(x, y, length, True)
+        if i % 100 == 0:
+            print(f"c: {C} loss: {loss_c} m:{M} loss: {loss_m}")
+        C = C - L * loss_c
+        M = M - L * loss_m
+
+
+def norm_data(arr):
+    span = np.max(arr) - np.min(arr)
+    return (arr - np.min(arr)) / span
 
 
 def main():
     """main function"""
     data = pd.read_csv("data.csv")
-    x = data.iloc[:, 0]
-    y = data.iloc[:, 1]
-    # plot_data(x, y)
+    x = norm_data(data.iloc[:, 0])
+    y = norm_data(data.iloc[:, 1])
     train_model(x, y)
+    plot_data(x, y)
     print(f"final formular: price = {C} + {M} * mileage")
 
 

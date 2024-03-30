@@ -19,24 +19,25 @@ def plot_data(x, y):
     plt.show()
 
 
-def calc_loss(x, y, var) -> float:
+def calc_loss(x, y, length, var) -> float:
     """calculates loss dependent on the variable"""
     sum: float = 0.0
-    for i in x:
+    for i in range(length):
         predicted_price = C + M * x[i]
         error = y[i] - predicted_price
         if var is True:
             error *= y[i]
         sum += error
-    return (-2 / len(x)) * sum
+    return (-2 / length) * sum
 
 
 def train_model(x, y):
     """trains the model with gradient descent"""
+    length = len(x)
     for i in range(Iterations):
         global C, M
-        loss_m = calc_loss(x, y, True)
-        loss_c = calc_loss(x, y, False)
+        loss_m = calc_loss(x, y, length, True)
+        loss_c = calc_loss(x, y, length, False)
         C -= L * loss_c
         M -= L * loss_m
         print(f"c: {C} loss: {loss_c} m:{M} loss: {loss_m}")
@@ -46,8 +47,8 @@ def train_model(x, y):
 def main():
     """main function"""
     data = pd.read_csv("data.csv")
-    x = np.array(data.get("km"))
-    y = np.array(data.get("price"))
+    x = data.iloc[:, 0]
+    y = data.iloc[:, 1]
     # plot_data(x, y)
     train_model(x, y)
     print(f"final formular: price = {C} + {M} * mileage")

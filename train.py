@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-import pandas as pd
+from utils import load_data
 import matplotlib.pyplot as plt
 
 
@@ -72,7 +72,7 @@ def main():
     iterations = 500
     if len(sys.argv) > 1 and sys.argv[1].isdigit():
         iterations = int(sys.argv[1])
-    data = pd.read_csv("data.csv")
+    data = load_data("data.csv", "km", "price")
     x = np.array(data.get("km"))
     y = np.array(data.get("price"))
     train_model(normed(x), normed(y), iterations)

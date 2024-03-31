@@ -38,6 +38,7 @@ def train_model(x, y, iterations):
     for i in range(iterations):
         loss_c = calc_loss(x, y, length, False)
         loss_m = calc_loss(x, y, length, True)
+        # print(f"!Update! theta0 = {C} theta1 = {M}")
         plot_data(x, y, f"Graph Progression Epoch:{i}", 0.01)
         C = C - L * loss_c
         M = M - L * loss_m

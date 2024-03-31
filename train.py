@@ -9,16 +9,16 @@ C: float = 0.0
 L: float = 0.1
 
 
-def plot_data(x, y, i):
+def plot_data(x, y, title, pause):
     """plots the data from the csv"""
     plt.scatter(x, y)
     predict = C + M * x
     plt.plot(x, predict, color="g")
     plt.xlabel("mileage")
     plt.ylabel("price")
-    plt.title(f"Graph Progression Epoch:{i}")
+    plt.title(title)
     plt.draw()
-    plt.pause(0.01)
+    plt.pause(pause)
     plt.clf()
 
 
@@ -34,11 +34,11 @@ def train_model(x, y, iterations):
     """trains the model with gradient descent"""
     global C, M
     length = len(x)
-    plot_data(x, y, 0)
+    plot_data(x, y, "Graph at Start", 1)
     for i in range(iterations):
         loss_c = calc_loss(x, y, length, False)
         loss_m = calc_loss(x, y, length, True)
-        plot_data(x, y, i)
+        plot_data(x, y, f"Graph Progression Epoch:{i}", 0.01)
         C = C - L * loss_c
         M = M - L * loss_m
 
@@ -77,6 +77,7 @@ def main():
     y = np.array(data.get("price"))
     train_model(normed(x), normed(y), iterations)
     denorm_coefs(x, y)
+    plot_data(x, y, "Final Result", 3)
     write_result()
 
 

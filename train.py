@@ -15,7 +15,7 @@ def plot_data(x, y, i):
     plt.plot(x, predict, color="g")
     plt.xlabel("mileage")
     plt.ylabel("price")
-    plt.title(f"Graph Progression epoch:{i}")
+    plt.title(f"Graph Progression Epoch:{i}")
     plt.draw()
     plt.pause(0.01)
     plt.clf()
@@ -72,8 +72,8 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1].isdigit():
         iterations = int(sys.argv[1])
     data = pd.read_csv("data.csv")
-    x = data.iloc[:, 0]
-    y = data.iloc[:, 1]
+    x = np.array(data.get("km"))
+    y = np.array(data.get("price"))
     train_model(normed(x), normed(y), iterations)
     denorm_coefs(x, y)
     write_result()

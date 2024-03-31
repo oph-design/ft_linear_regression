@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -5,18 +6,19 @@ import matplotlib.pyplot as plt
 M: float = 0.0
 C: float = 0.0
 L: float = 0.1
-Iterations: int = 1000
 
 
-def plot_data(x, y):
+def plot_data(x, y, i):
     """plots the data from the csv"""
     plt.scatter(x, y)
     predict = C + M * x
     plt.plot(x, predict, color="g")
     plt.xlabel("mileage")
     plt.ylabel("price")
-    plt.title("price per mileage")
-    plt.show()
+    plt.title(f"Graph Progression epoch:{i}")
+    plt.draw()
+    plt.pause(0.01)
+    plt.clf()
 
 
 def calc_loss(x, y, length, slope) -> float:
@@ -27,21 +29,21 @@ def calc_loss(x, y, length, slope) -> float:
     return (2 / length) * sum(x * (prediction - y))
 
 
-def train_model(x, y):
+def train_model(x, y, iterations):
     """trains the model with gradient descent"""
     global C, M
     length = len(x)
-    for i in range(Iterations):
+    plot_data(x, y, 0)
+    for i in range(iterations):
         loss_c = calc_loss(x, y, length, False)
         loss_m = calc_loss(x, y, length, True)
-        if i % 100 == 0:
-            print(f"c: {C} loss: {loss_c} m:{M} loss: {loss_m}")
+        plot_data(x, y, i)
         C = C - L * loss_c
         M = M - L * loss_m
 
 
 def normed(arr):
-    """normes array to 0 1 scale"""
+    """norms array to 0 1 scale"""
     span = np.max(arr) - np.min(arr)
     return (arr - np.min(arr)) / span
 
@@ -55,14 +57,26 @@ def denorm_coefs(x, y):
     C = np.min(y) + spany * C + M * (1 - np.min(x))
 
 
+def write_result():
+    """writes coefficiants to file"""
+    file = open("coefs.csv", "w")
+    file.write("theta0,theta1\n")
+    file.write(f"{C},{M}\n")
+    file.close()
+
+
 def main():
     """main function"""
+    plt.ion()
+    iterations = 500
+    if len(sys.argv) > 1 and sys.argv[1].isdigit():
+        iterations = int(sys.argv[1])
     data = pd.read_csv("data.csv")
     x = data.iloc[:, 0]
     y = data.iloc[:, 1]
-    train_model(normed(x), normed(y))
+    train_model(normed(x), normed(y), iterations)
     denorm_coefs(x, y)
-    plot_data(x, y)
+    write_result()
 
 
 if __name__ == "__main__":

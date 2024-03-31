@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 M: float = 0.0
 C: float = 0.0
 L: float = 0.1
@@ -54,7 +55,7 @@ def denorm_coefs(x, y):
     spanx = np.max(x) - np.min(x)
     spany = np.max(y) - np.min(y)
     M = spany * M / spanx
-    C = np.min(y) + spany * C + M * (1 - np.min(x))
+    C = spany * C + M * (1 - np.min(x)) + np.min(y)
 
 
 def write_result():

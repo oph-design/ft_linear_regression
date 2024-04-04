@@ -37,10 +37,17 @@
 ## About The Project
 
 <p align="center">
-<img width="636" alt="Screen Shot 2024-04-04 at 7 09 39 PM" src="https://github.com/oph-design/ft_linear_regression/assets/115570424/0c62f155-91fa-403d-a475-da216cfd2dcf">
+<img width="400" alt="Screen Shot 2024-04-04 at 7 09 39 PM" src="https://github.com/oph-design/ft_linear_regression/assets/115570424/0c62f155-91fa-403d-a475-da216cfd2dcf">
 </p>
 
-Ft_linear_regression is a project of the 42 coding school curriculum
+The project is about training a linear model able to predict the price on a car based on the driven mileage.</br>
+The data is provided by data.csv file which by plotting the data points reveals a linear dependency of price to mileage. </br> So the formular to achieve is:
+$`price = mileage * m + c`$ </br>
+with `m` and `c` having to be found by the training alogrithm. </br> For finding the coeficciants the project is using the Gradient Descent algorithm,
+which uses the mean squared error as loss function: </br> $$E = \sum_{i=1}^n (y_i * (m * x_i + c))^2$$
+The program calculates the loss for each coefficient using the partial derivatives of the loss function during each epoch.</br>
+The coefficiants than get adjusted by their multiplied by the Learningrate L (0.1): $`Coef_x = Coef_x - L * D_x `$ </br>
+
 
 <!-- GETTING STARTED -->
 ## Getting Started

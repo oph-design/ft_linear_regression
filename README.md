@@ -40,7 +40,7 @@
 <img width="400" alt="Screen Shot 2024-04-04 at 7 09 39 PM" src="https://github.com/oph-design/ft_linear_regression/assets/115570424/0c62f155-91fa-403d-a475-da216cfd2dcf">
 </p>
 
-The project is about training a linear model able to predict the price on a car based on the driven mileage.
+The project is about training a linear model able to predict the price of a car based on the driven mileage.
 </br> So the formular to achieve is:
 $`price = mileage * m + c`$ </br>
 with `m` and `c` having to be found by the training alogrithm. </br> For finding the coeficciants the project is using the Gradient Descent algorithm,

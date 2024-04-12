@@ -5,10 +5,10 @@
 
 <h1 align="center">FT Linear Regression</h1>
 <p align="center">
-	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/oph-design/fract-ol?color=lightblue" />
-	<img alt="Code language count" src="https://img.shields.io/github/languages/count/oph-design/fract-ol?color=yellow" />
-	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/oph-design/fract-ol?color=blue" />
-	<img alt="GitHub last commit" src="https://img.shields.io/github/created-at/oph-design/fract-ol?color=green" />
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/oph-design/ft_linear_regression?color=lightblue" />
+	<img alt="Code language count" src="https://img.shields.io/github/languages/count/oph-design/ft_linear_regression?color=yellow" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/oph-design/ft_linear_regression?color=blue" />
+	<img alt="GitHub last commit" src="https://img.shields.io/github/created-at/oph-design/ft_linear_regression?color=green" />
 </p>
 
 
